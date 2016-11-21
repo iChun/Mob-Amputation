@@ -1,0 +1,25 @@
+mobamputation.config.prop.gibTime.name=Avhuggning livstid
+mobamputation.config.prop.gibGroundTime.name=Avhuggning marktid
+mobamputation.config.prop.blood.name=Blodseffekter
+mobamputation.config.prop.bloodCount.name=Mängd blodpartiklar
+mobamputation.config.prop.bloodSplurt.name=Blodseffekter i sår
+mobamputation.config.prop.greenBlood.name=Grönt blod
+mobamputation.config.prop.playerGibs.name=Spelaravhuggning
+mobamputation.config.prop.gibPushing.name=Kollision med avhuggna delar
+mobamputation.config.prop.headlessDeath.name=Huvudlös död
+mobamputation.config.prop.toolEffect.name=Verktygseffekt
+mobamputation.config.prop.gibChance.name=Avhuggningschans
+mobamputation.config.prop.projectileList.name=Projektil som påverkar avhuggning
+
+mobamputation.config.prop.gibTime.comment=Tid som avhuggna delar kan leva (helt och lållet)
+mobamputation.config.prop.gibGroundTime.comment=Tid som avhuggna delar han leva från att de slår i marken
+mobamputation.config.prop.blood.comment=Ska avhuggning ha blod?
+mobamputation.config.prop.bloodCount.comment=Antal blodpartiklar som skapas vid avhuggning
+mobamputation.config.prop.bloodSplurt.comment=Borde blod spruta ut från såret vid avhuggningen?
+mobamputation.config.prop.greenBlood.comment=Borde blodet vara grönt i stället för rött?
+mobamputation.config.prop.playerGibs.comment=Kan spelare bli avhuggna?
+mobamputation.config.prop.gibPushing.comment=Knuffar avhuggna delar mobs och spelare?
+mobamputation.config.prop.headlessDeath.comment=Borde mobs utan huvud ta massor av skada?
+mobamputation.config.prop.toolEffect.comment=Borde verktyg påverka chansen för att hugga av kroppsdelar?
+mobamputation.config.prop.gibChance.comment=Chans för att hugga av.\nEndast när verktygseffekten är på.
+mobamputation.config.prop.projectileList.comment=Fler projektiler som påverkar avhuggning.\nStandardchans är 100%\n\n<Projektilnamn>: <Chans i procent>, <Projektilnamn>, <Projektilnamn> etc\n\nex:"Arrow: 100, Snowball: 50"

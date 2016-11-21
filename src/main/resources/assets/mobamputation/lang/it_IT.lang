@@ -1,0 +1,25 @@
+mobamputation.config.prop.gibTime.name=Tempo di vita dell'arto
+mobamputation.config.prop.gibGroundTime.name=Tempo di vita dell'arto a terra
+mobamputation.config.prop.blood.name=Effetto sangue
+mobamputation.config.prop.bloodCount.name=Quantitativo di particelle di sangue
+mobamputation.config.prop.bloodSplurt.name=Sangue che zampilla dalle ferite
+mobamputation.config.prop.greenBlood.name=Colore del Sangue Verde
+mobamputation.config.prop.playerGibs.name=Arti del giocatore
+mobamputation.config.prop.gibPushing.name=Arti che spostano entita
+mobamputation.config.prop.headlessDeath.name=Morte senza testa
+mobamputation.config.prop.toolEffect.name=Effetto degli strumenti
+mobamputation.config.prop.gibChance.name=Possibilita degli arti
+mobamputation.config.prop.projectileList.name=Proiettili influenzano gli arti
+
+mobamputation.config.prop.gibTime.comment=Tempo totale di vita dell'arto
+mobamputation.config.prop.gibGroundTime.comment=Tempo di vita dell'arto una volta che ha toccato terra
+mobamputation.config.prop.blood.comment=Gli arti hanno sangue?
+mobamputation.config.prop.bloodCount.comment=Numero di particelle di sangue per arto
+mobamputation.config.prop.bloodSplurt.comment=Il sangue deve sgorgare dall'arto amputato?
+mobamputation.config.prop.greenBlood.comment=Sangue verde al posto di rosso?
+mobamputation.config.prop.playerGibs.comment=Posso amputare i giocatori?
+mobamputation.config.prop.gibPushing.comment=Gli arti influenzano i percorsi dei mob?
+mobamputation.config.prop.headlessDeath.comment=I mob senza testa devono subire danni massicci?
+mobamputation.config.prop.toolEffect.comment=Gli strumenti devono avere possibilita diverse di amputare?
+mobamputation.config.prop.gibChance.comment=Possibilita che un mob perda un arto.\nSolo se Effetto degli Strumenti e disattivato.
+mobamputation.config.prop.projectileList.comment=Proiettili agiguntivi aumentano la possibilita di amputazioni.\nDefault chance e' 100%\n\n<NomeEntita>: <Percentuale>, <NomeEntita>, <NomeEntita> ecc\n\nEG:"Frecce: 100, Palle di neve: 50"

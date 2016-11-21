@@ -1,0 +1,25 @@
+mobamputation.config.prop.gibTime.name=Tiempo de vida del miembro
+mobamputation.config.prop.gibGroundTime.name=Tiempo en el suelo del miembro
+mobamputation.config.prop.blood.name=Sangre
+mobamputation.config.prop.bloodCount.name=Número de particulas de sangre
+mobamputation.config.prop.bloodSplurt.name=Sangre saliendo de las heridas
+mobamputation.config.prop.greenBlood.name=Color de la sangre verde
+mobamputation.config.prop.playerGibs.name=Desmembramiento de jugadores
+mobamputation.config.prop.gibPushing.name=El miembro empuja entidades
+mobamputation.config.prop.headlessDeath.name=Muerte sin cabeza
+mobamputation.config.prop.toolEffect.name=Efectos de herramientas
+mobamputation.config.prop.gibChance.name=Probabilidad de amputar
+mobamputation.config.prop.projectileList.name=Proyectiles que afectan a la amputación
+
+mobamputation.config.prop.gibTime.comment=Tiempo que los miembros pueden vivir
+mobamputation.config.prop.gibGroundTime.comment=tiempo de vida de los miembros cuando tocan el suelo
+mobamputation.config.prop.blood.comment=¿Debería tener sangre el miembro?
+mobamputation.config.prop.bloodCount.comment=Cantidad de particulas de sangre por miembro
+mobamputation.config.prop.bloodSplurt.comment=¿Debería salir sangre de la herida?
+mobamputation.config.prop.greenBlood.comment=¿Debería ser la sangre verde en vez de roja?
+mobamputation.config.prop.playerGibs.comment=¿Se puede amputar a los jugadores?
+mobamputation.config.prop.gibPushing.comment=¿Los miembros empujan activamente a las entidades en su camino?
+mobamputation.config.prop.headlessDeath.comment=¿Deberian los mobs sin cabeza recibir daño masivo?
+mobamputation.config.prop.toolEffect.comment=¿Deberían las herramientas afectar a la probabilidad de amputar?
+mobamputation.config.prop.gibChance.comment=Probabilidad de amputar a los mobs.\nSolo si los efectos de herramientas están desactivados.
+mobamputation.config.prop.projectileList.comment=Proyectiles adicionales que afectan a la amputación.\nLa probabilidad por defecto es 100%\n\n<EntityName>: <Chance out of 100>, <EntityName>, <EntityName> etc\n\nEG:"Flechas: 100, Bolas de nieve: 50"

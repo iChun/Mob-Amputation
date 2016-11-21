@@ -1,0 +1,25 @@
+mobamputation.config.prop.gibTime.name=Gliedmaß-Lebensdauer
+mobamputation.config.prop.gibGroundTime.name=Gliedmaß-Bodenlebensdauer
+mobamputation.config.prop.blood.name=Bluteffekte
+mobamputation.config.prop.bloodCount.name=Blut-Partikelmenge
+mobamputation.config.prop.bloodSplurt.name=Blut spritzt von Wunden
+mobamputation.config.prop.greenBlood.name=Grünes Blut
+mobamputation.config.prop.playerGibs.name=Spieler zerhacken
+mobamputation.config.prop.gibPushing.name=Gliedmaßen bewegen Entitys
+mobamputation.config.prop.headlessDeath.name=Kopfloser Tod
+mobamputation.config.prop.toolEffect.name=Werkzeug-Effekt
+mobamputation.config.prop.gibChance.name=Zerhack-Chance
+mobamputation.config.prop.projectileList.name=Projektile, die Gliedmaßen beeinflussen
+
+mobamputation.config.prop.gibTime.comment=Gesamte Lebensdauer von Gliedmaßen
+mobamputation.config.prop.gibGroundTime.comment=Lebensdauer von Gliedmaßen, sobald sie den Boden berührt haben
+mobamputation.config.prop.blood.comment=Soll zerhacken Blut haben?
+mobamputation.config.prop.bloodCount.comment=Menge der Blutpartikel pro Gliedmaß
+mobamputation.config.prop.bloodSplurt.comment=Soll Blut aus der Wunde der Gliedmaße spritzen?
+mobamputation.config.prop.greenBlood.comment=Soll Blut grün anstatt rot sein?
+mobamputation.config.prop.playerGibs.comment=Können Spieler zerhackt werden?
+mobamputation.config.prop.gibPushing.comment=Schieben Gliedmaßen aktiv Mobs auf ihrem Weg herum?
+mobamputation.config.prop.headlessDeath.comment=Sollen Mobs ohne Kopf massiven Schaden bekommen?
+mobamputation.config.prop.toolEffect.comment=Sollen Werkzeuge die Zerhack-Chance beeinflussen?
+mobamputation.config.prop.gibChance.comment=Chance, dass Mobs Gliedmaßen verlieren.\nNur, wenn der Werkzeug-Effekt ausgeschaltet ist.
+mobamputation.config.prop.projectileList.comment=Zusätzliche Projektile, die das Zerhacken beeinflussen.\nDie Standard-Chance liegt bei 100%\n\n<Entity-Name>: <Chance bis zu 100>, <Entity-Name>, <Entity-Name> etc\n\nZ. B.:"Arrow: 100, Snowball: 50"

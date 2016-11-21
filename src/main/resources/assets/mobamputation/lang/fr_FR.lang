@@ -1,0 +1,25 @@
+mobamputation.config.prop.gibTime.name=Durée de vie d'un membre
+mobamputation.config.prop.gibGroundTime.name=Durée au sol d'un membre
+mobamputation.config.prop.blood.name=Particules de sang
+mobamputation.config.prop.bloodCount.name=Quantité de particules de sang
+mobamputation.config.prop.bloodSplurt.name=Jets de sang des blessures
+mobamputation.config.prop.greenBlood.name=Sang vert
+mobamputation.config.prop.playerGibs.name=Joueur démembrable
+mobamputation.config.prop.gibPushing.name=Les membres poussent les entités
+mobamputation.config.prop.headlessDeath.name=Mort par décapitation
+mobamputation.config.prop.toolEffect.name=Effet d'un outil
+mobamputation.config.prop.gibChance.name=Probabilité de démembrement
+mobamputation.config.prop.projectileList.name=Projectiles qui affectent les membres
+
+mobamputation.config.prop.gibTime.comment=Durée de vie totale d'un membre
+mobamputation.config.prop.gibGroundTime.comment=Durée de vie d'un membre une fois qu'il a touché le sol
+mobamputation.config.prop.blood.comment=Est-ce qu'un membre doit saigner ?
+mobamputation.config.prop.bloodCount.comment=Quantité de particules de sang générées par membre découpé
+mobamputation.config.prop.bloodSplurt.comment=Est-ce que le sang devrait sortir d'une blessure ?
+mobamputation.config.prop.greenBlood.comment=Est-ce que le sang devrait être vert au lieu d'être rouge ?
+mobamputation.config.prop.playerGibs.comment=Est-ce que les joueurs peuvent être démembrés ?
+mobamputation.config.prop.gibPushing.comment=Est-ce que les membres peuvent pousser les entités ?
+mobamputation.config.prop.headlessDeath.comment=Est-ce que les monstres sans tête doivent prendre de gros dommages ?
+mobamputation.config.prop.toolEffect.comment=Est-ce que les outils affectent la probabilité de démembrement?
+mobamputation.config.prop.gibChance.comment=Probabilité qu'un monstre puisse être démembré.\nSeulement quand l'effet d'un outil est désactivé.
+mobamputation.config.prop.projectileList.comment=Projectiles supplémentaires qui affectent le démembrement.\nProbabilité par défaut: 100%\n\n<NomEntité>: <Probabilité sur 100>, <NomEntité>, <NomEntité> etc\n\nExemple:"Arrow: 100, Snowball: 50"

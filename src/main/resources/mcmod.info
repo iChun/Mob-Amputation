@@ -1,0 +1,21 @@
+[
+{
+  "modid" : "mobamputation",
+  "name" : "MobAmputation",
+  "version" : "${version}",
+  "url" : "http://ichun.me/mods/mob-amputation/",
+  "credits" : "",
+  "authorList": [
+    "iChun"
+  ],
+  "description": "Amputate mobs!",
+  "logoFile" : "",
+  "updateUrl" : "",
+  "parent" : "",
+  "screenshots": [
+  ],
+  "dependencies": [
+    "Forge", "iChunUtil"
+  ]
+}
+]
