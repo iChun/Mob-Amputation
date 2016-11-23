@@ -14,12 +14,14 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityFishHook;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -29,29 +31,56 @@ public class EventHandlerClient
     public boolean serverHasMod;
 
     public HashMap<EntityLivingBase, EntityGib[]> amputationMap = new HashMap<>();
+    public ArrayList<EntityFishHook> fishHooks = new ArrayList<>();
 
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event)
     {
         if(event.phase == TickEvent.Phase.END)
         {
-            Iterator<Map.Entry<EntityLivingBase, EntityGib[]>> ite = amputationMap.entrySet().iterator();
-            while(ite.hasNext())
+            if(Minecraft.getMinecraft().theWorld != null)
             {
-                Map.Entry<EntityLivingBase, EntityGib[]> e = ite.next();
-                if(e.getKey().isDead || e.getKey().isChild())
+                Iterator<Map.Entry<EntityLivingBase, EntityGib[]>> ite = amputationMap.entrySet().iterator();
+                while(ite.hasNext())
                 {
-                    e.getValue()[0].setDead();
-                    e.getValue()[1].setDead();
-                    e.getValue()[2].setDead();
-                    if(e.getKey().isChild() && e.getKey() instanceof EntityZombie)
+                    Map.Entry<EntityLivingBase, EntityGib[]> e = ite.next();
+                    if(e.getKey().isDead || e.getKey().isChild())
                     {
-                        e.getKey().setSize(0F, 0F);
-                        e.getKey().setSize(0.6F, 1.95F);
-                        ((EntityZombie)e.getKey()).setChildSize(true);
+                        e.getValue()[0].setDead();
+                        e.getValue()[1].setDead();
+                        e.getValue()[2].setDead();
+                        if(e.getKey().isChild() && e.getKey() instanceof EntityZombie)
+                        {
+                            e.getKey().setSize(0F, 0F);
+                            e.getKey().setSize(0.6F, 1.95F);
+                            ((EntityZombie)e.getKey()).setChildSize(true);
+                        }
+                        ite.remove();
                     }
-                    ite.remove();
                 }
+                for(int i = fishHooks.size() - 1; i >= 0; i--)
+                {
+                    EntityFishHook hook = fishHooks.get(i);
+                    if(hook.isDead)
+                    {
+                        fishHooks.remove(i);
+                        continue;
+                    }
+                    if(hook.caughtEntity != null)
+                    {
+                        if(amputationMap.containsKey(hook.caughtEntity))
+                        {
+                            EntityGib[] gibs = amputationMap.get(hook.caughtEntity);
+                            gibs[hook.worldObj.rand.nextInt(gibs.length)].fishHook = hook;
+                        }
+                        fishHooks.remove(i);
+                    }
+                }
+            }
+            else
+            {
+                amputationMap.clear();
+                fishHooks.clear();
             }
         }
     }
@@ -191,6 +220,10 @@ public class EventHandlerClient
         if(event.getEntity().worldObj.isRemote)
         {
             Minecraft mc = Minecraft.getMinecraft();
+            if(event.getEntity() instanceof EntityFishHook)
+            {
+                fishHooks.add((EntityFishHook)event.getEntity());
+            }
             if(event.getEntity() instanceof EntityZombie && !((EntityZombie)event.getEntity()).isVillager() || event.getEntity() instanceof EntitySkeleton || MobAmputation.config.playerGibs == 1 && event.getEntity() instanceof EntityPlayer && event.getEntity() != mc.thePlayer)
             {
                 EntityLivingBase living = (EntityLivingBase)event.getEntity();

@@ -370,7 +370,7 @@ public class EntityGib extends Entity
 
         if(ds.getSourceOfDamage() instanceof EntityPlayer && attached && !detach)
         {
-            Minecraft.getMinecraft().playerController.attackEntity((EntityPlayer)ds.getSourceOfDamage(), parent);
+            Minecraft.getMinecraft().playerController.attackEntity((EntityPlayer)ds.getSourceOfDamage(), parent); //TODO follow up with Tinker's Construct's Scythe
             hitTimeout = 10;
 
             if(parent instanceof EntityPlayer && type == 2 || parent instanceof EntitySkeleton && type == 2 && !MobAmputation.eventHandlerClient.serverHasMod)
@@ -402,28 +402,6 @@ public class EntityGib extends Entity
             yawSpin = j * (float)(Math.sqrt(parent.motionX * parent.motionZ) + 0.3D);
 
             return parent.attackEntityFrom(ds, f);
-        }
-
-        if(ds.getSourceOfDamage() instanceof EntityFishHook && attached && !detach)
-        {
-            EntityGib[] gibs = MobAmputation.eventHandlerClient.amputationMap.get(parent);
-            boolean hook = true;
-            for(EntityGib gib : gibs)
-            {
-                if(gib == this)
-                {
-                    continue;
-                }
-                if(gib.fishHook == ds.getSourceOfDamage())
-                {
-                    hook = false;
-                    break;
-                }
-            }
-            if(hook)
-            {
-                fishHook = (EntityFishHook)ds.getSourceOfDamage();
-            }
         }
 
         String[] split = MobAmputation.config.projectileList.split(", *");

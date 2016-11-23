@@ -87,6 +87,7 @@ public class Config extends ConfigBase
         {
             MobAmputation.eventHandlerClient.serverHasMod = false;
             MobAmputation.eventHandlerClient.amputationMap.clear();
+            MobAmputation.eventHandlerClient.fishHooks.clear();
         }
     }
 
