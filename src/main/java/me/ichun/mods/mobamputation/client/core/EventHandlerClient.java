@@ -1,5 +1,6 @@
 package me.ichun.mods.mobamputation.client.core;
 
+import me.ichun.mods.ichunutil.common.core.util.EntityHelper;
 import me.ichun.mods.mobamputation.client.entity.EntityGib;
 import me.ichun.mods.mobamputation.client.render.ModelGib;
 import me.ichun.mods.mobamputation.common.MobAmputation;
@@ -13,6 +14,7 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.monster.EntityZombieVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFishHook;
 import net.minecraft.world.World;
@@ -38,7 +40,7 @@ public class EventHandlerClient
     {
         if(event.phase == TickEvent.Phase.END)
         {
-            if(Minecraft.getMinecraft().theWorld != null)
+            if(Minecraft.getMinecraft().world != null)
             {
                 Iterator<Map.Entry<EntityLivingBase, EntityGib[]>> ite = amputationMap.entrySet().iterator();
                 while(ite.hasNext())
@@ -51,8 +53,8 @@ public class EventHandlerClient
                         e.getValue()[2].setDead();
                         if(e.getKey().isChild() && e.getKey() instanceof EntityZombie)
                         {
-                            e.getKey().setSize(0F, 0F);
-                            e.getKey().setSize(0.6F, 1.95F);
+                            EntityHelper.setSize(e.getKey().getClass(), e.getKey(), 0F, 0F);
+                            EntityHelper.setSize(e.getKey().getClass(), e.getKey(), 0.6F, 1.95F);
                             ((EntityZombie)e.getKey()).setChildSize(true);
                         }
                         ite.remove();
@@ -71,7 +73,7 @@ public class EventHandlerClient
                         if(amputationMap.containsKey(hook.caughtEntity))
                         {
                             EntityGib[] gibs = amputationMap.get(hook.caughtEntity);
-                            gibs[hook.worldObj.rand.nextInt(gibs.length)].fishHook = hook;
+                            gibs[hook.world.rand.nextInt(gibs.length)].fishHook = hook;
                         }
                         fishHooks.remove(i);
                     }
@@ -217,19 +219,19 @@ public class EventHandlerClient
     @SubscribeEvent
     public void onEntitySpawn(EntityJoinWorldEvent event)
     {
-        if(event.getEntity().worldObj.isRemote)
+        if(event.getEntity().world.isRemote)
         {
             Minecraft mc = Minecraft.getMinecraft();
             if(event.getEntity() instanceof EntityFishHook)
             {
                 fishHooks.add((EntityFishHook)event.getEntity());
             }
-            if(event.getEntity() instanceof EntityZombie && !((EntityZombie)event.getEntity()).isVillager() || event.getEntity() instanceof EntitySkeleton || MobAmputation.config.playerGibs == 1 && event.getEntity() instanceof EntityPlayer && event.getEntity() != mc.thePlayer)
+            if(event.getEntity() instanceof EntityZombie && !(event.getEntity() instanceof EntityZombieVillager) || event.getEntity() instanceof EntitySkeleton || MobAmputation.config.playerGibs == 1 && event.getEntity() instanceof EntityPlayer && event.getEntity() != mc.player)
             {
                 EntityLivingBase living = (EntityLivingBase)event.getEntity();
                 if(!amputationMap.containsKey(living) && !living.isChild())
                 {
-                    attachGibs(event.getEntity().worldObj, living);
+                    attachGibs(event.getEntity().world, living);
                 }
             }
         }
@@ -237,13 +239,13 @@ public class EventHandlerClient
 
     public void attachGibs(World world, EntityLivingBase living)
     {
-        living.setSize(0.4F, 1.5F);
+        EntityHelper.setSize(living.getClass(), living, 0.4F, 1.5F);
         living.setPosition(living.posX, living.posY, living.posZ);
         EntityGib[] gibs = new EntityGib[3];
         for(int i = 0; i <= 2; i++)
         {
             gibs[i] = new EntityGib(world, living, i);
-            world.spawnEntityInWorld(gibs[i]);
+            world.spawnEntity(gibs[i]);
         }
         amputationMap.put(living, gibs);
     }

@@ -24,7 +24,7 @@ public class EventHandlerServer
                 e.setValue(e.getValue() - 1);
                 if(e.getValue() <= 0)
                 {
-                    e.getKey().attackEntityFrom(headlessHarmer.get(e.getKey()) == null ? DamageSource.generic : DamageSource.causePlayerDamage(headlessHarmer.get(e.getKey())), 200);
+                    e.getKey().attackEntityFrom(headlessHarmer.get(e.getKey()) == null ? DamageSource.GENERIC : DamageSource.causePlayerDamage(headlessHarmer.get(e.getKey())), 200);
                     headlessHarmer.remove(e.getKey());
                     iterator.remove();
                 }

@@ -47,7 +47,7 @@ public class PacketDetachLimb extends AbstractPacket
     }
 
     @Override
-    public AbstractPacket execute(Side side, EntityPlayer player)
+    public void execute(Side side, EntityPlayer player)
     {
         if(side.isServer())
         {
@@ -56,7 +56,7 @@ public class PacketDetachLimb extends AbstractPacket
                 MobAmputation.channel.sendToDimension(this, player.dimension);
             }
 
-            Entity ent = player.worldObj.getEntityByID(entId);
+            Entity ent = player.world.getEntityByID(entId);
             if(MobAmputation.config.headlessDeath == 1 && limbType == 0)
             {
                 if(ent instanceof EntityLivingBase && !(ent instanceof EntityPlayer))
@@ -91,7 +91,6 @@ public class PacketDetachLimb extends AbstractPacket
         {
             handleClient();
         }
-        return null;
     }
 
     @Override
@@ -103,7 +102,7 @@ public class PacketDetachLimb extends AbstractPacket
     @SideOnly(Side.CLIENT)
     public void handleClient()
     {
-        EntityGib[] gibs = MobAmputation.eventHandlerClient.amputationMap.get(Minecraft.getMinecraft().theWorld.getEntityByID(entId));
+        EntityGib[] gibs = MobAmputation.eventHandlerClient.amputationMap.get(Minecraft.getMinecraft().world.getEntityByID(entId));
         if(gibs != null)
         {
             EntityGib gib = gibs[limbType];

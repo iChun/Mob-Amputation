@@ -1,6 +1,7 @@
 package me.ichun.mods.mobamputation.client.entity;
 
 import me.ichun.mods.ichunutil.client.render.RendererHelper;
+import me.ichun.mods.ichunutil.common.iChunUtil;
 import me.ichun.mods.mobamputation.client.particle.ParticleBlood;
 import me.ichun.mods.mobamputation.common.MobAmputation;
 import me.ichun.mods.mobamputation.common.packet.PacketDetachLimb;
@@ -8,6 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.MoverType;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
@@ -53,7 +55,7 @@ public class EntityGib extends Entity
         yawSpin = 15F;
 
         groundTime = 0;
-        liveTime = (int)world.getWorldTime();
+        liveTime = iChunUtil.eventHandlerClient.ticks;
         attached = true;
         detach = false;
         ignoreFrustumCheck = true;
@@ -105,11 +107,11 @@ public class EntityGib extends Entity
 
             if(type == 1)
             {
-                parent.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, null); //TODO update this when 1.11
+                parent.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, ItemStack.EMPTY);
             }
             else if(type == 2)
             {
-                parent.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, null); //TODO update this when 1.11
+                parent.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.EMPTY);
             }
 
             motionX = parent.motionX * 1.05D;
@@ -118,9 +120,9 @@ public class EntityGib extends Entity
 
             if(fishHook != null && fishHook.isDead)
             {
-                motionX = (fishHook.angler.posX - parent.posX) * 0.1D;
-                motionY = (fishHook.angler.posY - parent.posY) * 0.1D + (rand.nextDouble() * 0.4D);
-                motionZ = (fishHook.angler.posZ - parent.posZ) * 0.1D;
+                motionX = (fishHook.getAngler().posX - parent.posX) * 0.1D;
+                motionY = (fishHook.getAngler().posY - parent.posY) * 0.1D + (rand.nextDouble() * 0.4D);
+                motionZ = (fishHook.getAngler().posZ - parent.posZ) * 0.1D;
             }
             if(projectile != null)
             {
@@ -149,13 +151,13 @@ public class EntityGib extends Entity
                     mY += (double)((parent.getRNG().nextFloat() - parent.getRNG().nextFloat()) * 0.1F);
                     mZ += Math.sin((double)var5) * (double)var4;
 
-                    RendererHelper.spawnParticle(new ParticleBlood(worldObj, posX, posY + (rand.nextDouble() * 0.2D), posZ, parent.motionX + mX, parent.motionY + mY, parent.motionZ + mZ, parent instanceof EntityPlayer));
+                    RendererHelper.spawnParticle(new ParticleBlood(world, posX, posY + (rand.nextDouble() * 0.2D), posZ, parent.motionX + mX, parent.motionY + mY, parent.motionZ + mZ, parent instanceof EntityPlayer));
                 }
             }
         }
         if(attached)
         {
-            liveTime = (int)worldObj.getWorldTime();
+            liveTime = iChunUtil.eventHandlerClient.ticks;
 
             prevPosX = parent.prevPosX;
             prevPosY = parent.getEntityBoundingBox().minY + 1.275D;
@@ -211,7 +213,7 @@ public class EntityGib extends Entity
         }
         else
         {
-            moveEntity(motionX, motionY, motionZ);
+            move(MoverType.SELF, motionX, motionY, motionZ);
 
             this.motionY -= 0.08D;
 
@@ -227,7 +229,7 @@ public class EntityGib extends Entity
                 this.motionX *= 0.8D;
                 this.motionZ *= 0.8D;
             }
-            else if(projectile != null && isCollided)
+            else if(projectile != null && collided)
             {
                 if((motionX != 0.0D || motionZ != 0.0D) && MobAmputation.config.blood == 1 && (parent instanceof EntityZombie || parent instanceof EntityPlayer) && parent.isEntityAlive())
                 {
@@ -244,7 +246,7 @@ public class EntityGib extends Entity
                         mY += (double)((parent.getRNG().nextFloat() - parent.getRNG().nextFloat()) * 0.1F);
                         mZ += Math.sin((double)var5) * (double)var4;
 
-                        RendererHelper.spawnParticle(new ParticleBlood(worldObj, posX, posY + (rand.nextDouble() * 0.2D), posZ, parent.motionX + mX, parent.motionY + mY, parent.motionZ + mZ, parent instanceof EntityPlayer));
+                        RendererHelper.spawnParticle(new ParticleBlood(world, posX, posY + (rand.nextDouble() * 0.2D), posZ, parent.motionX + mX, parent.motionY + mY, parent.motionZ + mZ, parent instanceof EntityPlayer));
                     }
                 }
 
@@ -299,7 +301,7 @@ public class EntityGib extends Entity
                             mY += (double)((parent.getRNG().nextFloat() - parent.getRNG().nextFloat()) * 0.1F);
                             mZ += Math.sin((double)var5) * (double)var4;
 
-                            RendererHelper.spawnParticle(new ParticleBlood(worldObj, pX, pY + (rand.nextDouble() * 0.2D), pZ, parent.motionX + mX, parent.motionY + mY, parent.motionZ + mZ, parent instanceof EntityPlayer));
+                            RendererHelper.spawnParticle(new ParticleBlood(world, pX, pY + (rand.nextDouble() * 0.2D), pZ, parent.motionX + mX, parent.motionY + mY, parent.motionZ + mZ, parent instanceof EntityPlayer));
                         }
                     }
                 }
@@ -308,7 +310,7 @@ public class EntityGib extends Entity
 
         if(!attached && MobAmputation.config.gibPushing == 1)
         {
-            List var2 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand(0.15D, 0.0D, 0.15D));
+            List var2 = this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().grow(0.15D, 0.0D, 0.15D));
             if(var2 != null && !var2.isEmpty())
             {
                 Iterator var10 = var2.iterator();
@@ -341,7 +343,7 @@ public class EntityGib extends Entity
         {
             groundTime = 0;
         }
-        if(liveTime + MobAmputation.config.gibTime < (int)worldObj.getWorldTime())
+        if(liveTime + MobAmputation.config.gibTime < iChunUtil.eventHandlerClient.ticks)
         {
             setDead();
         }
@@ -350,15 +352,15 @@ public class EntityGib extends Entity
     @Override
     public boolean attackEntityFrom(DamageSource ds, float f)
     {
-        if(parent.hurtTime > 0 || ds.getEntity() == parent)
+        if(parent.hurtTime > 0 || ds.getTrueSource() == parent)
         {
-            if(ds.getEntity() == parent && ds.getSourceOfDamage() != parent)
+            if(ds.getTrueSource() == parent && ds.getImmediateSource() != parent && ds.getImmediateSource() != null)
             {
-                ds.getSourceOfDamage().motionX *= -10;
-                ds.getSourceOfDamage().motionY *= -10;
-                ds.getSourceOfDamage().motionZ *= -10;
-                ds.getSourceOfDamage().rotationYaw += 180.0F;
-                ds.getSourceOfDamage().prevRotationYaw += 180.0F;
+                ds.getImmediateSource().motionX *= -10;
+                ds.getImmediateSource().motionY *= -10;
+                ds.getImmediateSource().motionZ *= -10;
+                ds.getImmediateSource().rotationYaw += 180.0F;
+                ds.getImmediateSource().prevRotationYaw += 180.0F;
             }
             return false;
         }
@@ -368,9 +370,9 @@ public class EntityGib extends Entity
             return false;
         }
 
-        if(ds.getSourceOfDamage() instanceof EntityPlayer && attached && !detach)
+        if(ds.getImmediateSource() instanceof EntityPlayer && attached && !detach)
         {
-            Minecraft.getMinecraft().playerController.attackEntity((EntityPlayer)ds.getSourceOfDamage(), parent); //TODO follow up with Tinker's Construct's Scythe
+            Minecraft.getMinecraft().playerController.attackEntity((EntityPlayer)ds.getImmediateSource(), parent); //TODO follow up with Tinker's Construct's Scythe
             hitTimeout = 10;
 
             if(parent instanceof EntityPlayer && type == 2 || parent instanceof EntitySkeleton && type == 2 && !MobAmputation.eventHandlerClient.serverHasMod)
@@ -378,8 +380,8 @@ public class EntityGib extends Entity
                 return parent.attackEntityFrom(ds, f);
             }
 
-            ItemStack is = ((EntityPlayer)ds.getSourceOfDamage()).getHeldItemMainhand();
-            if(MobAmputation.config.toolEffect == 0 && rand.nextFloat() > ((float)MobAmputation.config.gibChance / 100F) || MobAmputation.config.toolEffect == 1 && (is == null || (is.getItem() instanceof ItemSword || is.getItem() instanceof ItemAxe) && rand.nextDouble() < 0.5D || is.getItem() instanceof ItemPickaxe && rand.nextDouble() < 0.667D || is.getItem() instanceof ItemSpade && rand.nextDouble() < 0.75D))
+            ItemStack is = ((EntityPlayer)ds.getImmediateSource()).getHeldItemMainhand();
+            if(MobAmputation.config.toolEffect == 0 && rand.nextFloat() > ((float)MobAmputation.config.gibChance / 100F) || MobAmputation.config.toolEffect == 1 && (is.isEmpty() || (is.getItem() instanceof ItemSword || is.getItem() instanceof ItemAxe) && rand.nextDouble() < 0.5D || is.getItem() instanceof ItemPickaxe && rand.nextDouble() < 0.667D || is.getItem() instanceof ItemSpade && rand.nextDouble() < 0.75D))
             {
                 return parent.attackEntityFrom(ds, f);
             }
@@ -440,11 +442,11 @@ public class EntityGib extends Entity
             projectileList.put("Arrow", s);
         }
 
-        if(ds.getSourceOfDamage() != null)
+        if(ds.getImmediateSource() != null)
         {
-            String key = EntityList.getEntityString(ds.getSourceOfDamage());
+            String key = EntityList.getEntityString(ds.getImmediateSource());
 
-            Entity ent = ds.getSourceOfDamage();
+            Entity ent = ds.getImmediateSource();
             for(String clz : projectileList.keySet())
             {
                 try
@@ -476,7 +478,7 @@ public class EntityGib extends Entity
                 float chanceFloat = (float)chance / 100F;
                 if(rand.nextFloat() <= chanceFloat)
                 {
-                    projectile = ds.getSourceOfDamage();
+                    projectile = ds.getImmediateSource();
                     projMotionX = projectile.motionX;
                     projMotionY = projectile.motionY;
                     projMotionZ = projectile.motionZ;
