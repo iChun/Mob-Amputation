@@ -39,6 +39,7 @@ public class EntityGib extends Entity
 
     public boolean attached;
     public boolean detach;
+    public boolean beingAttacked;
 
     public EntityFishHook fishHook;
     public Entity projectile;
@@ -352,6 +353,11 @@ public class EntityGib extends Entity
     @Override
     public boolean attackEntityFrom(DamageSource ds, float f)
     {
+        if(beingAttacked)
+        {
+            return false;
+        }
+
         if(parent.hurtTime > 0 || ds.getTrueSource() == parent)
         {
             if(ds.getTrueSource() == parent && ds.getImmediateSource() != parent && ds.getImmediateSource() != null)
@@ -372,7 +378,9 @@ public class EntityGib extends Entity
 
         if(ds.getImmediateSource() instanceof EntityPlayer && attached && !detach)
         {
-            Minecraft.getMinecraft().playerController.attackEntity((EntityPlayer)ds.getImmediateSource(), parent); //TODO follow up with Tinker's Construct's Scythe
+            beingAttacked = true;
+            Minecraft.getMinecraft().playerController.attackEntity((EntityPlayer)ds.getImmediateSource(), parent);
+            beingAttacked = false;
             hitTimeout = 10;
 
             if(parent instanceof EntityPlayer && type == 2 || parent instanceof EntitySkeleton && type == 2 && !MobAmputation.eventHandlerClient.serverHasMod)

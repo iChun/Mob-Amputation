@@ -15,7 +15,7 @@ compileJava {
 }
 
 // Requires iChunUtil to run. Just put iChunUtil-deobf.jar in the /libs/ folder or it won't compile.
-version = "1.12.2-7.0.0"
+version = "1.12.2-7.0.1"
 group= "mobamp"
 archivesBaseName = "MobAmputation"
 
